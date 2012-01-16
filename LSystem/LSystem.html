@@ -1,0 +1,76 @@
+<html>
+
+<!--
+// Copyright (c) 2010 Eric R. Johnson, http://www.lostbearlabs.com
+-->
+
+<head>
+<link rel="stylesheet" type="text/css" href="LSystem.css" />
+
+<script src="jquery-1.4.2.js"></script>
+<script src="raphael-1.5.2.js"></script>
+<script src="LSystem.js"></script>
+
+
+  	<script type="text/javascript">
+	
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-3155283-1']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	
+	</script>
+
+</head>
+<body>
+
+
+<h1>Select a grammar, or enter your own:</h1>
+
+<form action="">
+	<label>Predefined grammars:</label>
+    <label for="selectGrammar"></label>
+    <select id="selectGrammar">	</select>
+	<br />
+	<label>X:</label><label for="grammarTextX"></label>
+    <input id="grammarTextX">
+	<br />
+	<label for="grammarTextF">F:</label>
+    <input id="grammarTextF">
+	<br />
+	<label for="grammarTextPhi">Phi:</label>
+    <input id="grammarTextPhi">
+</form>
+
+<h1>Select the depth of expansion:</h1>
+
+<form action="">
+	<label for="drawingDepth">Depth:</label>
+	<select id="drawingDepth">
+		<option id="draw0" value="0" selected="true">0</option>
+		<option id="draw1" value="1">1</option>
+		<option id="draw2" value="2">2</option>
+		<option id="draw3" value="3">3</option>
+		<option id="draw4" value="4">4</option>
+
+	</select>
+
+</form>
+
+<h1>Resulting Diagram is:</h1>
+
+<div id="CanvasBorder">
+	<div id="TheCanvas"></div>
+</div>
+
+<p><span style="font-size: small;">(Predefined examples are from Chapter 1 of <em>The Algorithmic Beauty of Plants</em> by Przemyslaw Prusinkiewicz and Aristid Lindenmayer.)</span></p>
+
+</body>
+
+
+</html>
