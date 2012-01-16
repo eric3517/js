@@ -34,7 +34,7 @@
       <file leaf-file-name="diffusion.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/diffusion.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="7" selection-start="494" selection-end="494" vertical-scroll-proportion="0.27567568">
+            <state line="7" column="0" selection-start="314" selection-end="314" vertical-scroll-proportion="0.12237762">
               <folding />
             </state>
           </provider>
@@ -81,10 +81,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="591" />
-    <option name="y" value="53" />
-    <option name="width" value="1239" />
-    <option name="height" value="1095" />
+    <option name="x" value="755" />
+    <option name="y" value="112" />
+    <option name="width" value="1146" />
+    <option name="height" value="1028" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -148,13 +148,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="591" y="53" width="1239" height="1095" extended-state="0" />
+    <frame x="755" y="112" width="1146" height="1028" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26069078" sideWeight="0.9980139" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2822796" sideWeight="0.9966997" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -256,7 +256,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/diffusion.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="7" selection-start="494" selection-end="494" vertical-scroll-proportion="0.27567568">
+        <state line="7" column="0" selection-start="314" selection-end="314" vertical-scroll-proportion="0.12237762">
           <folding />
         </state>
       </provider>
