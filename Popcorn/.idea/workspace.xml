@@ -22,29 +22,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Popcorn.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Popcorn.css">
+      <file leaf-file-name="popcorn.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/popcorn.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="74" selection-end="74" vertical-scroll-proportion="0.0">
+            <state line="6" column="0" selection-start="97" selection-end="97" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Popcorn.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Popcorn.html">
+      <file leaf-file-name="publish" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/publish">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="3" selection-start="287" selection-end="287" vertical-scroll-proportion="-5.0">
+            <state line="4" column="54" selection-start="180" selection-end="180" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PopcornPopper.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/PopcornPopper.js">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../LostBearLabs/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="357" column="25" selection-start="9554" selection-end="9554" vertical-scroll-proportion="6.065292">
+            <state line="13" column="5" selection-start="398" selection-end="398" vertical-scroll-proportion="-8.125">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="popcorn.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/popcorn.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="0" selection-start="364" selection-end="364" vertical-scroll-proportion="-10.625">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="popcorn.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/popcorn.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="0" selection-start="0" selection-end="263" vertical-scroll-proportion="0.08503401">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -65,14 +85,19 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/PopcornPopper.js" />
+        <option value="$PROJECT_DIR$/Popcorn.css" />
+        <option value="$PROJECT_DIR$/popcorn.js" />
+        <option value="$PROJECT_DIR$/publish" />
+        <option value="$PROJECT_DIR$/../../LostBearLabs/index.html" />
+        <option value="$PROJECT_DIR$/popcorn.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="268" />
-    <option name="y" value="73" />
-    <option name="width" value="1414" />
-    <option name="height" value="1032" />
+    <option name="x" value="645" />
+    <option name="y" value="119" />
+    <option name="width" value="1146" />
+    <option name="height" value="1028" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -120,11 +145,12 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="web-ide.project.structure" />
+    <property name="recentsLimit" value="5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../LostBearLabs" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="JavaScript Debug.Popcorn.html">
     <configuration default="false" name="Popcorn.html" type="JavascriptDebugSession" factoryName="Local" temporary="true">
@@ -195,13 +221,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="268" y="73" width="1414" height="1032" extended-state="0" />
+    <frame x="645" y="119" width="1146" height="1028" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32968238" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20201294" sideWeight="0.5323111" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20201294" sideWeight="0.6418401" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20124666" sideWeight="0.6418401" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3581599" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -269,22 +295,40 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Popcorn.css">
+    <entry file="file://$PROJECT_DIR$/popcorn.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="74" selection-end="74" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Popcorn.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="3" selection-start="287" selection-end="287" vertical-scroll-proportion="-5.0">
+        <state line="6" column="0" selection-start="97" selection-end="97" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PopcornPopper.js">
+    <entry file="file://$PROJECT_DIR$/publish">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="357" column="25" selection-start="9554" selection-end="9554" vertical-scroll-proportion="6.065292">
+        <state line="4" column="54" selection-start="180" selection-end="180" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../LostBearLabs/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="5" selection-start="398" selection-end="398" vertical-scroll-proportion="-8.125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/popcorn.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="364" selection-end="364" vertical-scroll-proportion="-10.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/popcorn.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="0" selection-end="263" vertical-scroll-proportion="0.08503401">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

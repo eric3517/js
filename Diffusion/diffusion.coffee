@@ -1,5 +1,12 @@
-# dev note: "coffee -cwo . ."
+###
+Copyright (c) 2010-2011 Eric R. Johnson, http://www.lostbearlabs.com
 
+All code on LostBearLabs.com is made available under the terms of the
+Artistic License 2.0, for details please see:
+   http://www.opensource.org/licenses/artistic-license-2.0.php
+###
+
+# (note: recompile in-place with 'coffee -cwo . .')
 
 _WIDTH = 400
 _HEIGHT = 400

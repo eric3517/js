@@ -1,3 +1,12 @@
+
+/*
+Copyright (c) 2010-2011 Eric R. Johnson, http://www.lostbearlabs.com
+
+All code on LostBearLabs.com is made available under the terms of the
+Artistic License 2.0, for details please see:
+   http://www.opensource.org/licenses/artistic-license-2.0.php
+*/
+
 (function() {
   var collision2Ds, inContact, initData, isAtEdge, isLeft, isOnOwnSide, midLineGreen, midLineYellow, onTimer1, onTimer2, paper, rnd, switchMembrane, updatePositions, _HEIGHT, _WIDTH, _diffuse, _dot, _dotOnItsOwnSide, _dx, _dy, _green, _num, _rDot, _timer1, _timer2, _x, _xMax, _xMid, _xMin, _y, _yMax, _yMin, _yellow;
 
