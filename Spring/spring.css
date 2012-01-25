@@ -1,0 +1,27 @@
+h1 {
+	font-family: monospace;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+label {
+	font-family: monospace;
+	font-size: 12px;
+	font-style: italic;
+	font-weight: bold;
+}
+
+div#CanvasBorder {
+	color: #999999;
+	min-height: 420px;
+	min-width: 420px;
+	height: 420px;
+	width: 420px;
+}
+
+div#TheCanvas {
+	padding-left: 10px;
+	padding-top: 10px;
+	background-position: 0;
+}
+
