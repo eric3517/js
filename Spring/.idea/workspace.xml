@@ -25,7 +25,7 @@
       <file leaf-file-name="spring.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spring.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="311" selection-end="311" vertical-scroll-proportion="0.0">
+            <state line="78" column="42" selection-start="1550" selection-end="1580" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -43,7 +43,7 @@
       <file leaf-file-name="spring.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spring.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="31" selection-start="460" selection-end="460" vertical-scroll-proportion="-5.0">
+            <state line="21" column="7" selection-start="830" selection-end="830" vertical-scroll-proportion="-13.125">
               <folding />
             </state>
           </provider>
@@ -61,7 +61,7 @@
       <file leaf-file-name="shape-manager.coffee" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shape-manager.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="1" selection-start="396" selection-end="396" vertical-scroll-proportion="0.32223415">
+            <state line="16" column="1" selection-start="376" selection-end="376" vertical-scroll-proportion="0.25778732">
               <folding />
             </state>
           </provider>
@@ -105,8 +105,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="500" />
-    <option name="y" value="58" />
+    <option name="x" value="484" />
+    <option name="y" value="56" />
     <option name="width" value="1326" />
     <option name="height" value="1077" />
   </component>
@@ -172,7 +172,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="500" y="58" width="1326" height="1077" extended-state="0" />
+    <frame x="484" y="56" width="1326" height="1077" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -268,28 +268,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MainPage.xaml.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="13" selection-start="870" selection-end="1604" vertical-scroll-proportion="0.0">
+        <state line="58" column="13" selection-start="870" selection-end="1604" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spring.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="7" selection-start="830" selection-end="830" vertical-scroll-proportion="-13.125">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spring.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="311" selection-end="311" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spring.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="31" selection-start="460" selection-end="460" vertical-scroll-proportion="-5.0">
+        <state line="78" column="42" selection-start="1550" selection-end="1580" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shape-manager.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="1" selection-start="396" selection-end="396" vertical-scroll-proportion="0.32223415">
+        <state line="16" column="1" selection-start="376" selection-end="376" vertical-scroll-proportion="0.25778732">
           <folding />
         </state>
       </provider>

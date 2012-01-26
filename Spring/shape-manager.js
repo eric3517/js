@@ -6,23 +6,50 @@
     function ShapeManager(panel, size) {
       this.panel = panel;
       this.size = size;
-      this.tracked = null;
-      this.offsetX = 0.0;
-      this.offsetY = 0.0;
       this.shapes = [];
+      this.rDot = 10;
     }
 
     ShapeManager.prototype.isTracked = function(shape) {
-      return shape === this.tracked;
+      return shape.tracked;
     };
 
     ShapeManager.prototype.add = function(x, y, atEnd) {
-      var color, shape;
-      shape = this.panel.circle(x, y, 10);
+      var color, maxPos, minPos, onEnd, onMove, onStart, shape;
+      shape = this.panel.circle(x, y, this.rDot);
       color = atEnd ? "#f00" : "#0f0";
       shape.attr("fill", color);
       shape.attr("stroke-width", "0");
-      return this.shapes.push(shape);
+      shape.attr({
+        cx: x,
+        cy: y
+      });
+      console.log("new shape: " + x + "," + y);
+      minPos = this.rDot;
+      maxPos = this.size - this.rDot;
+      this.shapes.push(shape);
+      onMove = function(dx, dy, x, y, obj) {
+        var cx, cy;
+        cx = this.x0 + dx;
+        cy = this.y0 + dy;
+        cx = Math.max(cx, minPos);
+        cy = Math.max(cy, minPos);
+        cx = Math.min(cx, maxPos);
+        cy = Math.min(cy, maxPos);
+        return shape.attr({
+          cx: cx,
+          cy: cy
+        });
+      };
+      onStart = function(x, y, obj) {
+        this.x0 = shape.attr("cx");
+        this.y0 = shape.attr("cy");
+        return shape.tracked = true;
+      };
+      onEnd = function(e, obj) {
+        return shape.tracked = false;
+      };
+      return shape.drag(onMove, onStart, onEnd);
     };
 
     return ShapeManager;
