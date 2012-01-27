@@ -40,13 +40,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="l-system.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="l-system.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/l-system.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="10" selection-start="2132" selection-end="2132" vertical-scroll-proportion="0.3526077">
+            <state line="77" column="10" selection-start="2132" selection-end="2132" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="publish" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/publish">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="0" selection-start="187" selection-end="187" vertical-scroll-proportion="0.08503401">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -71,6 +80,7 @@
         <option value="$PROJECT_DIR$/l-system.html" />
         <option value="$PROJECT_DIR$/l-system.css" />
         <option value="$PROJECT_DIR$/l-system.js" />
+        <option value="$PROJECT_DIR$/publish" />
       </list>
     </option>
   </component>
@@ -253,10 +263,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/l-system.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="10" selection-start="2132" selection-end="2132" vertical-scroll-proportion="0.3526077">
+        <state line="77" column="10" selection-start="2132" selection-end="2132" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/publish">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="187" selection-end="187" vertical-scroll-proportion="0.08503401">
+          <folding />
         </state>
       </provider>
     </entry>

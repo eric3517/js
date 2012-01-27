@@ -12,16 +12,17 @@ label {
 }
 
 div#CanvasBorder {
-	color: #999999;
-	min-height: 420px;
-	min-width: 420px;
-	height: 420px;
-	width: 420px;
+    background-color: #2f4f4f;
+    border: 1px black;
+	height: 400px;
+	width: 400px;
+    padding: 5px 5px 5px 5px;
 }
 
 div#TheCanvas {
-	padding-left: 10px;
-	padding-top: 10px;
+    background-color: white;
+    height: 400px;
+    width: 400px;
 	background-position: 0;
 }
 

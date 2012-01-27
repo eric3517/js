@@ -1,17 +1,34 @@
 (function() {
-  var ShapeManager, root;
+  var ShapeManager, root,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   ShapeManager = (function() {
 
     function ShapeManager(panel, size) {
       this.panel = panel;
       this.size = size;
+      this.isTracked = __bind(this.isTracked, this);
       this.shapes = [];
       this.rDot = 10;
     }
 
-    ShapeManager.prototype.isTracked = function(shape) {
-      return shape.tracked;
+    ShapeManager.prototype.isTracked = function(i) {
+      return this.shapes[i].tracked;
+    };
+
+    ShapeManager.prototype.getX = function(i) {
+      return this.shapes[i].attr("cx");
+    };
+
+    ShapeManager.prototype.getY = function(i) {
+      return this.shapes[i].attr("cy");
+    };
+
+    ShapeManager.prototype.setXY = function(i, x, y) {
+      return this.shapes[i].attr({
+        cx: x,
+        cy: y
+      });
     };
 
     ShapeManager.prototype.add = function(x, y, atEnd) {
@@ -24,7 +41,6 @@
         cx: x,
         cy: y
       });
-      console.log("new shape: " + x + "," + y);
       minPos = this.rDot;
       maxPos = this.size - this.rDot;
       this.shapes.push(shape);
@@ -44,10 +60,12 @@
       onStart = function(x, y, obj) {
         this.x0 = shape.attr("cx");
         this.y0 = shape.attr("cy");
+        shape.attr("opacity", 0.5);
         return shape.tracked = true;
       };
       onEnd = function(e, obj) {
-        return shape.tracked = false;
+        shape.tracked = false;
+        return shape.attr("opacity", 1.0);
       };
       return shape.drag(onMove, onStart, onEnd);
     };

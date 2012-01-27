@@ -141,8 +141,6 @@ initData = ->
   midLineYellow.attr("fill-opacity", "0")
   midLineGreen.attr("fill-opacity", "0")
 
-  border = paper.rect(0, 0, _xMax, _yMax)
-
   for i in [0..._num]
 
     x = _rDot + rnd(_xMax - 2*_rDot)

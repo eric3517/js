@@ -136,7 +136,7 @@ Artistic License 2.0, for details please see:
   };
 
   initData = function() {
-    var border, color, i, midLineWidth, vFactor, x, y, z, _results;
+    var color, i, midLineWidth, vFactor, x, y, z, _results;
     paper = Raphael("TheCanvas", _WIDTH, _HEIGHT);
     _xMin = 0;
     _xMax = 0;
@@ -152,7 +152,6 @@ Artistic License 2.0, for details please see:
     midLineGreen.attr("stroke-width", "0");
     midLineYellow.attr("fill-opacity", "0");
     midLineGreen.attr("fill-opacity", "0");
-    border = paper.rect(0, 0, _xMax, _yMax);
     _results = [];
     for (i = 0; 0 <= _num ? i < _num : i > _num; 0 <= _num ? i++ : i--) {
       x = _rDot + rnd(_xMax - 2 * _rDot);

@@ -8,37 +8,11 @@ Artistic License 2.0, for details please see:
 */
 
 (function() {
-  var collision2Ds, inContact, initData, isAtEdge, isLeft, isOnOwnSide, midLineGreen, midLineYellow, onTimer1, onTimer2, paper, rnd, switchMembrane, unused, updatePositions, _HEIGHT, _WIDTH, _diffuse, _dot, _dotOnItsOwnSide, _dx, _dy, _green, _num, _rDot, _timer1, _timer2, _x, _xMax, _xMid, _xMin, _y, _yMax, _yMin, _yellow;
+  var NUM, WIDTH, dx, dy, initData, midLineGreen, midLineYellow, onTimer1, paper, timer1, updatePositions, x, y;
 
-  _WIDTH = 400;
+  WIDTH = 400;
 
-  _HEIGHT = 400;
-
-  _x = [];
-
-  _y = [];
-
-  _dx = [];
-
-  _dy = [];
-
-  _num = 20;
-
-  _dot = [];
-
-  _dotOnItsOwnSide = [];
-
-  _xMin = _xMax = _yMin = _yMax = 0;
-
-  _xMid = 0;
-
-  _rDot = 10;
-
-  _diffuse = false;
-
-  _timer1 = null;
-
-  _timer2 = null;
+  timer1 = null;
 
   paper = null;
 
@@ -46,211 +20,85 @@ Artistic License 2.0, for details please see:
 
   midLineGreen = null;
 
-  _green = "#0f0";
+  NUM = 16;
 
-  _yellow = "#ff0";
+  x = [];
 
-  isOnOwnSide = function(i) {
-    if (isLeft(i)) {
-      return _x[i] < (_xMid - _rDot);
-    } else {
-      return _x[i] > (_xMid + _rDot);
+  y = [];
+
+  dx = [];
+
+  dy = [];
+
+  initData = function() {
+    var atEnd, i, x0, y0, _results;
+    paper = Raphael("TheCanvas", WIDTH, WIDTH);
+    this.manager = new ShapeManager(paper, WIDTH);
+    _results = [];
+    for (i = 0; 0 <= NUM ? i <= NUM : i >= NUM; 0 <= NUM ? i++ : i--) {
+      x0 = (i + 1) * WIDTH / (NUM + 2);
+      y0 = WIDTH / 2;
+      atEnd = i === 0 || i === NUM;
+      this.manager.add(x0, y0, atEnd);
+      x.push(x0);
+      y.push(y0);
+      dx.push(0);
+      _results.push(dy.push(0));
     }
-  };
-
-  isAtEdge = function(i) {
-    var isBeyondMax, isBeyondMid, isBeyondMin;
-    isBeyondMin = _x[i] <= _xMin + _rDot;
-    isBeyondMid = !isOnOwnSide(i);
-    isBeyondMax = _x[i] >= (_xMax - _rDot);
-    if (_diffuse) {
-      if (!isBeyondMid) _dotOnItsOwnSide[i] = true;
-      if (_dotOnItsOwnSide[i]) return isBeyondMid;
-    }
-    return false;
+    return _results;
   };
 
   updatePositions = function() {
-    var i, j, tmpA, tmpB, tmpC, tmpD, _ref, _results;
-    for (i = 0; 0 <= _num ? i < _num : i > _num; 0 <= _num ? i++ : i--) {
-      for (j = 0; 0 <= _num ? j < _num : j > _num; 0 <= _num ? j++ : j--) {
-        if (inContact(i, j)) {
-          _ref = collision2Ds(1.0, 1.0, 1.0, _x[i] + _rDot, _y[i] + _rDot, _x[j] + _rDot, _y[j] + _rDot, _dx[i], _dy[i], _dx[j], _dy[j]), tmpA = _ref[0], tmpB = _ref[1], tmpC = _ref[2], tmpD = _ref[3];
-          _dx[i] = tmpA;
-          _dy[i] = tmpB;
-          _dx[j] = tmpC;
-          _dy[j] = tmpD;
-        }
-      }
+    var ax, ay, f1, f2x, f2y, f3x, f3y, f4x, f4y, i, _results;
+    f1 = 2.0;
+    f2x = 1.0;
+    f2y = 1.0;
+    f3x = 0.05;
+    f3y = 0.05;
+    f4x = 0.1;
+    f4y = 0.1;
+    for (i = 0; 0 <= NUM ? i <= NUM : i >= NUM; 0 <= NUM ? i++ : i--) {
+      if (i === 0 || i === NUM) continue;
+      if (this.manager.isTracked(i)) continue;
+      ax = 0;
+      ay = 0;
+      ay = f1;
+      ax = 0;
+      ax += f2x * (x[i - 1] - x[i]);
+      ay += f2y * (y[i - 1] - y[i]);
+      ax += f2x * (x[i + 1] - x[i]);
+      ay += f2y * (y[i + 1] - y[i]);
+      ax -= f4x * dx[i];
+      ay -= f4y * dy[i];
+      dx[i] += f3x * ax;
+      dy[i] += f3y * ay;
     }
     _results = [];
-    for (i = 0; 0 <= _num ? i < _num : i > _num; 0 <= _num ? i++ : i--) {
-      _x[i] += _dx[i];
-      _y[i] += _dy[i];
-      _dot[i].attr({
-        cx: _x[i],
-        cy: _y[i]
-      });
-      if (_y[i] <= _yMin + _rDot) {
-        _dy[i] = Math.abs(_dy[i]);
-      } else if (_y[i] >= (_yMax - _rDot)) {
-        _dy[i] = -Math.abs(_dy[i]);
-      }
-      if (isAtEdge(i)) {
-        if (isLeft(i)) {
-          _dx[i] = -Math.abs(_dx[i]);
-        } else {
-          _dx[i] = Math.abs(_dx[i]);
-        }
-      }
-      if (_x[i] <= _xMin + _rDot) {
-        _results.push(_dx[i] = Math.abs(_dx[i]));
-      } else if (_x[i] >= (_xMax - _rDot)) {
-        _results.push(_dx[i] = -Math.abs(_dx[i]));
+    for (i = 0; 0 <= NUM ? i <= NUM : i >= NUM; 0 <= NUM ? i++ : i--) {
+      if (this.manager.isTracked(i)) {
+        x[i] = this.manager.getX(i);
+        _results.push(y[i] = this.manager.getY(i));
       } else {
-        _results.push(void 0);
+        x[i] += dx[i];
+        y[i] += dy[i];
+        _results.push(this.manager.setXY(i, x[i], y[i]));
       }
     }
     return _results;
-  };
-
-  onTimer2 = function() {
-    return updatePositions();
   };
 
   onTimer1 = function() {
-    var allOwnSide, i;
-    allOwnSide = true;
-    for (i = 0; 0 <= _num ? i < _num : i > _num; 0 <= _num ? i++ : i--) {
-      if (!isOnOwnSide(i)) allOwnSide = false;
-    }
-    if (allOwnSide === true || !_diffuse) return switchMembrane();
-  };
-
-  isLeft = function(i) {
-    return i < (_num / 2);
-  };
-
-  rnd = function(x) {
-    return Math.floor(Math.random() * x);
-  };
-
-  initData = function() {
-    var NUM, atEnd, i, root, x, y, _results;
-    paper = Raphael("TheCanvas", _WIDTH, _WIDTH);
-    root = typeof exports !== "undefined" && exports !== null ? exports : window;
-    this.manager = new ShapeManager(paper, _WIDTH);
-    NUM = 16;
-    _results = [];
-    for (i = 0; 0 <= NUM ? i <= NUM : i >= NUM; 0 <= NUM ? i++ : i--) {
-      x = (i + 1) * _WIDTH / (NUM + 2);
-      y = _WIDTH / 2;
-      atEnd = i === 0 || i === NUM;
-      _results.push(this.manager.add(x, y, atEnd));
-    }
-    return _results;
-  };
-
-  unused = function() {
-    var border, color, i, midLineWidth, vFactor, x, y, z, _results;
-    _xMin = 0;
-    _xMax = 0;
-    _xMax = _WIDTH;
-    _yMax = _HEIGHT;
-    _xMid = _xMax / 2;
-    midLineWidth = 5;
-    midLineYellow = paper.rect(_xMid - midLineWidth, 0, midLineWidth, _yMax);
-    midLineGreen = paper.rect(_xMid, 0, midLineWidth, _yMax);
-    midLineYellow.attr("fill", _yellow);
-    midLineGreen.attr("fill", _green);
-    midLineYellow.attr("stroke-width", "0");
-    midLineGreen.attr("stroke-width", "0");
-    midLineYellow.attr("fill-opacity", "0");
-    midLineGreen.attr("fill-opacity", "0");
-    border = paper.rect(0, 0, _xMax, _yMax);
-    _results = [];
-    for (i = 0; 0 <= _num ? i < _num : i > _num; 0 <= _num ? i++ : i--) {
-      x = _rDot + rnd(_xMax - 2 * _rDot);
-      y = _rDot + rnd(_yMax - 2 * _rDot);
-      _x[i] = x;
-      _y[i] = y;
-      z = paper.circle(x, y, _rDot);
-      color = isLeft(i) ? _green : _yellow;
-      z.attr("fill", color);
-      z.attr("stroke-width", "0");
-      _dot[i] = z;
-      vFactor = 10.0;
-      _dx[i] = (rnd(100) - 50) / vFactor;
-      _results.push(_dy[i] = (rnd(100) - 50) / vFactor);
-    }
-    return _results;
+    return updatePositions();
   };
 
   $(document).ready(function() {
-    return initData();
+    initData();
+    return timer1 = setInterval(onTimer1, 100);
   });
-
-  $(document).load(function() {});
 
   $(document).unload(function() {
-    if (_timer1 !== null) clearInterval(_timer1);
-    _timer1 = null;
-    if (_timer2 !== null) clearInterval(_timer2);
-    return _timer2 = null;
+    if (timer1 !== null) clearInterval(timer1);
+    return timer1 = null;
   });
-
-  switchMembrane = function() {
-    var i, _results;
-    if (!_diffuse) {
-      _diffuse = true;
-      midLineYellow.attr("fill-opacity", "1");
-      midLineGreen.attr("fill-opacity", "1");
-      _results = [];
-      for (i = 0; 0 <= _num ? i <= _num : i >= _num; 0 <= _num ? i++ : i--) {
-        _results.push(_dotOnItsOwnSide[i] = isOnOwnSide(i));
-      }
-      return _results;
-    } else {
-      _diffuse = false;
-      midLineYellow.attr("fill-opacity", "0");
-      return midLineGreen.attr("fill-opacity", "0");
-    }
-  };
-
-  inContact = function(i, j) {
-    var dx, dy;
-    if (i === j) return false;
-    dx = _x[i] - _x[j];
-    dy = _y[i] - _y[j];
-    return (dx * dx + dy * dy) <= (_rDot * _rDot);
-  };
-
-  collision2Ds = function(m1, m2, R, x1, y1, x2, y2, vx1, vy1, vx2, vy2) {
-    var a, dvx2, fy21, m21, sign, vx21, vx_cm, vy21, vy_cm, x21, y21;
-    m21 = m2 / m1;
-    x21 = x2 - x1;
-    y21 = y2 - y1;
-    vx21 = vx2 - vx1;
-    vy21 = vy2 - vy1;
-    vx_cm = (m1 * vx1 + m2 * vx2) / (m1 + m2);
-    vy_cm = (m1 * vy1 + m2 * vy2) / (m1 + m2);
-    if ((vx21 * x21 + vy21 * y21) >= 0) return [vx1, vy1, vx2, vy2];
-    fy21 = 0.000000000001 * Math.abs(y21);
-    if (Math.abs(x21) < fy21) {
-      sign = x21 < 0 ? -1 : 1;
-      x21 = fy21 * sign;
-    }
-    a = y21 / x21;
-    dvx2 = -2 * (vx21 + a * vy21) / ((1 + a * a) * (1 + m21));
-    vx2 = vx2 + dvx2;
-    vy2 = vy2 + a * dvx2;
-    vx1 = vx1 - m21 * dvx2;
-    vy1 = vy1 - a * m21 * dvx2;
-    vx1 = (vx1 - vx_cm) * R + vx_cm;
-    vy1 = (vy1 - vy_cm) * R + vy_cm;
-    vx2 = (vx2 - vx_cm) * R + vx_cm;
-    vy2 = (vy2 - vy_cm) * R + vy_cm;
-    return [vx1, vy1, vx2, vy2];
-  };
 
 }).call(this);

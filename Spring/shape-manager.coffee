@@ -4,7 +4,12 @@ class ShapeManager
     @shapes = []
     @rDot = 10
 
-  isTracked: (shape) -> shape.tracked
+
+  isTracked: (i) => @shapes[i].tracked
+
+  getX: (i) -> @shapes[i].attr("cx")
+  getY: (i) -> @shapes[i].attr("cy")
+  setXY: (i, x, y) -> @shapes[i].attr( {cx: x, cy: y})
 
   add: (x, y, atEnd) ->
 
@@ -13,7 +18,7 @@ class ShapeManager
     shape.attr("fill", color)
     shape.attr("stroke-width", "0")
     shape.attr( {cx: x, cy: y} )
-    console.log("new shape: #{x},#{y}")
+ #   console.log("new shape: #{x},#{y}")
     minPos = @rDot
     maxPos = @size - @rDot
 
@@ -32,12 +37,14 @@ class ShapeManager
     onStart = (x, y, obj) ->
       @x0 = shape.attr("cx")
       @y0 = shape.attr("cy")
+      shape.attr("opacity", 0.5)
 #      console.log "onStart: #{x}, #{y} -- #{@x0},#{@y0}"
       shape.tracked = true
 
     onEnd = (e, obj) ->
 #      console.log "onEnd: #{e.x}, #{e.y}"
       shape.tracked = false
+      shape.attr("opacity", 1.0)
 
     shape.drag onMove, onStart, onEnd
 
