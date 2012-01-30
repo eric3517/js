@@ -12,7 +12,7 @@
     // *****************************************************
     // constants
 
-    var LEFT_MARGIN = 8; // characters
+    var LEFT_MARGIN = 4; // characters
     var CHAR_WIDTH = 10;
     var MAX_HEIGHT = 100;
     var BASE_HEIGHT = 350;
@@ -287,7 +287,7 @@
 
     var addKernels = function () {
         var i, n;
-        n = 5;
+        n = 3;
         for (i = 0; i < 4; i++) {
             addKernel("p", n++);
             addKernel("o", n++);
