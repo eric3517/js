@@ -20,7 +20,7 @@ Artistic License 2.0, for details please see:
 
   _dot = [];
 
-  N = 50;
+  N = 40;
 
   DRV_I = N / 2;
 
