@@ -12,11 +12,15 @@ WIDTH = 400
 HEIGHT = 400
 _paper = null
 
+_colors = ["red", "orange", "yellow", "green", "blue"]
+_harm = [1, 3, 5, 7, 9]
+NHARM = 5
+
 _tunings = [
   {
     name: "standard"
     names: [ "C", "D", "E", "F", "G", "A", "B", "C" ]
-    notes: [523,587,659,699,784,880,988,1047] # http://peabody.sapp.org/class/st2/lab/notehz/
+    notes: [523,587,659,699,784,880,988, 1047] # http://peabody.sapp.org/class/st2/lab/notehz/
   }
 ]
 _cur = _tunings[0]
@@ -37,8 +41,20 @@ height = (pitch) ->
   num = _cur.names.length
   dy = HEIGHT/10
   y = dy + pct*num*dy
-  console.log "#pitch={pitch}, min/max=#{minPitch},#{maxPitch}, logMin/logMax=#{logMin},#{logMax}, y=#{y}"
   HEIGHT - y
+
+xpos = (note) ->
+  dx = WIDTH / (_cur.names.length+2)
+  (note+1) * dx
+
+bar = (note, harm) ->
+  dx = WIDTH / (_cur.names.length+2)
+  y = height( _cur.notes[note]*_harm[harm] )
+  x0 = xpos(note)
+  x1 = x0 + 0.5*(xpos(note+1)-x0)
+  line = _paper.path "M #{x0},#{y} L #{x1},#{y}"
+  line.attr "stroke", _colors[harm]
+  line.attr "stroke-width", 3
 
 
 initData = ->
@@ -56,11 +72,19 @@ initData = ->
     line = _paper.path "M #{x0},#{y0} L #{x1},#{y1}"
     line.attr "stroke", "#888"
 
+  # vertical labels
   for i in [0 ... _cur.names.length]
     x = dx/4
     y = height( _cur.notes[i] )
     _paper.text x, y, _cur.names[i]
 
+  # horizontal labels
+  for i in [0 ... _cur.names.length-1]
+    _paper.text xpos(i)+10, HEIGHT-10, _cur.names[i]
+
+  for i in [0 ... _cur.names.length-1]
+    for j in [0 ... NHARM]
+      bar( i, j)
 
 
 $(document).ready ->

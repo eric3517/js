@@ -8,13 +8,19 @@ Artistic License 2.0, for details please see:
 */
 
 (function() {
-  var HEIGHT, WIDTH, height, initData, _cur, _paper, _tunings;
+  var HEIGHT, NHARM, WIDTH, bar, height, initData, xpos, _colors, _cur, _harm, _paper, _tunings;
 
   WIDTH = 400;
 
   HEIGHT = 400;
 
   _paper = null;
+
+  _colors = ["red", "orange", "yellow", "green", "blue"];
+
+  _harm = [1, 3, 5, 7, 9];
+
+  NHARM = 5;
 
   _tunings = [
     {
@@ -43,12 +49,28 @@ Artistic License 2.0, for details please see:
     num = _cur.names.length;
     dy = HEIGHT / 10;
     y = dy + pct * num * dy;
-    console.log("#pitch={pitch}, min/max=" + minPitch + "," + maxPitch + ", logMin/logMax=" + logMin + "," + logMax + ", y=" + y);
     return HEIGHT - y;
   };
 
+  xpos = function(note) {
+    var dx;
+    dx = WIDTH / (_cur.names.length + 2);
+    return (note + 1) * dx;
+  };
+
+  bar = function(note, harm) {
+    var dx, line, x0, x1, y;
+    dx = WIDTH / (_cur.names.length + 2);
+    y = height(_cur.notes[note] * _harm[harm]);
+    x0 = xpos(note);
+    x1 = x0 + 0.5 * (xpos(note + 1) - x0);
+    line = _paper.path("M " + x0 + "," + y + " L " + x1 + "," + y);
+    line.attr("stroke", _colors[harm]);
+    return line.attr("stroke-width", 3);
+  };
+
   initData = function() {
-    var dx, i, line, t, x, x0, x1, y, y0, y1, _ref, _ref2, _ref3, _results;
+    var dx, i, j, line, t, x, x0, x1, y, y0, y1, _ref, _ref2, _ref3, _ref4, _ref5, _results;
     _paper = Raphael("TheCanvas", WIDTH, WIDTH);
     for (i = 0, _ref = _tunings.length; 0 <= _ref ? i < _ref : i > _ref; 0 <= _ref ? i++ : i--) {
       t = _tunings[i];
@@ -62,11 +84,24 @@ Artistic License 2.0, for details please see:
       line = _paper.path("M " + x0 + "," + y0 + " L " + x1 + "," + y1);
       line.attr("stroke", "#888");
     }
-    _results = [];
     for (i = 0, _ref3 = _cur.names.length; 0 <= _ref3 ? i < _ref3 : i > _ref3; 0 <= _ref3 ? i++ : i--) {
       x = dx / 4;
       y = height(_cur.notes[i]);
-      _results.push(_paper.text(x, y, _cur.names[i]));
+      _paper.text(x, y, _cur.names[i]);
+    }
+    for (i = 0, _ref4 = _cur.names.length - 1; 0 <= _ref4 ? i < _ref4 : i > _ref4; 0 <= _ref4 ? i++ : i--) {
+      _paper.text(xpos(i) + 10, HEIGHT - 10, _cur.names[i]);
+    }
+    _results = [];
+    for (i = 0, _ref5 = _cur.names.length - 1; 0 <= _ref5 ? i < _ref5 : i > _ref5; 0 <= _ref5 ? i++ : i--) {
+      _results.push((function() {
+        var _results2;
+        _results2 = [];
+        for (j = 0; 0 <= NHARM ? j < NHARM : j > NHARM; 0 <= NHARM ? j++ : j--) {
+          _results2.push(bar(i, j));
+        }
+        return _results2;
+      })());
     }
     return _results;
   };
