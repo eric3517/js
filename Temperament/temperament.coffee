@@ -13,14 +13,20 @@ HEIGHT = 400
 _paper = null
 
 _colors = ["red", "orange", "yellow", "green", "blue"]
+_selected = []
 _harm = [1, 3, 5, 7, 9]
 NHARM = 5
 
 _tunings = [
   {
-    name: "standard"
+    name: "equal temperament"
     names: [ "C", "D", "E", "F", "G", "A", "B", "C" ]
     notes: [523,587,659,699,784,880,988, 1047] # http://peabody.sapp.org/class/st2/lab/notehz/
+  },
+  {
+    name: "just intonation"
+    names: [ "C", "D", "E", "F", "G", "A", "B", "C" ]
+    notes: [ 523*1/1, 523*9/8, 523*5/4, 523*4/3, 523*3/2, 523*5/3, 523*15/8, 523*2/1 ] # http://www.kylegann.com/tuning.html
   }
 ]
 _cur = _tunings[0]
@@ -47,27 +53,23 @@ xpos = (note) ->
   dx = WIDTH / (_cur.names.length+2)
   (note+1) * dx
 
-bar = (note, harm) ->
+bar = (note, harm, pos) ->
   dx = WIDTH / (_cur.names.length+2)
   y = height( _cur.notes[note]*_harm[harm] )
-  x0 = xpos(note)
-  x1 = x0 + 0.5*(xpos(note+1)-x0)
+  x0 = xpos(pos)
+  x1 = x0 + 0.5*(xpos(pos+1)-x0)
   line = _paper.path "M #{x0},#{y} L #{x1},#{y}"
   line.attr "stroke", _colors[harm]
   line.attr "stroke-width", 3
 
+draw = ->
+  _paper.clear() if _paper
 
-initData = ->
-  _paper = Raphael("TheCanvas", WIDTH, WIDTH)
-
-  for i in [0 ... _tunings.length]
-    t = _tunings[i]
-    $('#selectTuning').append('<option value="' + t.name + '">' + t.name + '</option>');
-
-  dx = WIDTH / _cur.names.length
+  # note lines
   for i in [0 ... _cur.names.length]
-    x0 = dx/2
-    x1 = WIDTH - dx/2
+    dx = xpos(1) - xpos(0)
+    x0 = xpos(0) - dx/2
+    x1 = xpos(_cur.names.length) - dx/2
     y0 = y1 = height( _cur.notes[i] )
     line = _paper.path "M #{x0},#{y0} L #{x1},#{y1}"
     line.attr "stroke", "#888"
@@ -82,12 +84,51 @@ initData = ->
   for i in [0 ... _cur.names.length-1]
     _paper.text xpos(i)+10, HEIGHT-10, _cur.names[i]
 
+  # harmonics
   for i in [0 ... _cur.names.length-1]
     for j in [0 ... NHARM]
-      bar( i, j)
+      bar( i, j, i )
+
+  # chord
+  for i in [0 ... _cur.names.length-1]
+    if _selected[i]
+      for j in [0 ... NHARM]
+        bar( i, j,  _cur.names.length )
+
+  # hilite boxes
+  for i in [0 ... _cur.names.length - 1]
+    x0 = xpos(i)
+    dx = 0.8 * (xpos(i+1) - x0)
+    y0 = 0
+    r = _paper.rect(x0, y0, dx, HEIGHT)
+    r.attr "fill", "darkgrey"
+    r.attr "opacity", (if _selected[i] then "0.2" else "0" )
+    r.data "idx", i
+    r.click( ->
+      idx = this.data("idx")
+      _selected[ idx ] = !_selected[idx]
+      draw()
+    )
+
+
+onChangeTuning = ->
+  selected = $("#selectTuning option:selected");
+  val = selected.val();
+  for t in _tunings
+    if t.name == val
+      _cur = t
+  draw()
+
+onClickPaper = ->
 
 
 $(document).ready ->
-  initData()
+  for i in [0 ... _tunings.length]
+    t = _tunings[i]
+    $('#selectTuning').append('<option value="' + t.name + '">' + t.name + '</option>');
+    $('#selectTuning').change(onChangeTuning)
+
+  _paper = Raphael("TheCanvas", WIDTH, HEIGHT);
+  draw()
 
 
