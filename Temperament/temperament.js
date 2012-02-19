@@ -8,7 +8,7 @@ Artistic License 2.0, for details please see:
 */
 
 (function() {
-  var HEIGHT, NHARM, WIDTH, bar, draw, height, onChangeTuning, onClickPaper, xpos, _colors, _cur, _harm, _paper, _selected, _tunings;
+  var HEIGHT, NHARM, WIDTH, bar, draw, height, onChangeTuning, onClickPlay, xpos, _colors, _cur, _harm, _paper, _selected, _tunings;
 
   WIDTH = 400;
 
@@ -28,11 +28,13 @@ Artistic License 2.0, for details please see:
     {
       name: "equal temperament",
       names: ["C", "D", "E", "F", "G", "A", "B", "C"],
-      notes: [523, 587, 659, 699, 784, 880, 988, 1047]
+      notes: [523, 587, 659, 699, 784, 880, 988, 1047],
+      midi: [0x3C, 0x3E, 0x40, 0x41, 0x43, 0x45, 0x47, 0x48]
     }, {
       name: "just intonation",
       names: ["C", "D", "E", "F", "G", "A", "B", "C"],
-      notes: [523 * 1 / 1, 523 * 9 / 8, 523 * 5 / 4, 523 * 4 / 3, 523 * 3 / 2, 523 * 5 / 3, 523 * 15 / 8, 523 * 2 / 1]
+      notes: [523 * 1 / 1, 523 * 9 / 8, 523 * 5 / 4, 523 * 4 / 3, 523 * 3 / 2, 523 * 5 / 3, 523 * 15 / 8, 523 * 2 / 1],
+      midi: [0x3C, 0x3E, 0x40, 0x41, 0x43, 0x45, 0x47, 0x48]
     }
   ];
 
@@ -136,7 +138,51 @@ Artistic License 2.0, for details please see:
     return draw();
   };
 
-  onClickPaper = function() {};
+  onClickPlay = function() {
+    var duration, embed, i, noteEvents, repeat, song, track, x, _i, _len, _ref, _ref2, _ref3, _ref4;
+    duration = 128;
+    noteEvents = [];
+    noteEvents.push(MidiEvent.noteOff(_cur.midi[0], duration));
+    _ref = _cur.midi;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      x = _ref[_i];
+      noteEvents.push(MidiEvent.noteOn(x));
+      noteEvents.push(MidiEvent.noteOff(x, duration));
+    }
+    for (repeat = 0; repeat < 2; repeat++) {
+      for (i = 0, _ref2 = _cur.names.length; 0 <= _ref2 ? i < _ref2 : i > _ref2; 0 <= _ref2 ? i++ : i--) {
+        if (_selected[i]) {
+          x = _cur.midi[i];
+          noteEvents.push(MidiEvent.noteOn(x));
+          noteEvents.push(MidiEvent.noteOff(x, duration));
+        }
+      }
+    }
+    for (i = 0, _ref3 = _cur.names.length; 0 <= _ref3 ? i < _ref3 : i > _ref3; 0 <= _ref3 ? i++ : i--) {
+      if (_selected[i]) {
+        x = _cur.midi[i];
+        noteEvents.push(MidiEvent.noteOn(x));
+      }
+    }
+    for (i = 0, _ref4 = _cur.names.length; 0 <= _ref4 ? i < _ref4 : i > _ref4; 0 <= _ref4 ? i++ : i--) {
+      if (_selected[i]) {
+        x = _cur.midi[i];
+        noteEvents.push(MidiEvent.noteOff(x, 4 * duration));
+      }
+    }
+    track = new MidiTrack({
+      events: noteEvents
+    });
+    song = MidiWriter({
+      tracks: [track]
+    });
+    $('#sound_').remove();
+    embed = document.createElement("embed");
+    embed.setAttribute("src", "data:audio/midi;base64," + song.b64);
+    embed.setAttribute("type", "audio/midi");
+    embed.setAttribute("id", "sound_");
+    return document.body.appendChild(embed);
+  };
 
   $(document).ready(function() {
     var i, t, _ref;
@@ -145,6 +191,7 @@ Artistic License 2.0, for details please see:
       $('#selectTuning').append('<option value="' + t.name + '">' + t.name + '</option>');
       $('#selectTuning').change(onChangeTuning);
     }
+    $('#play').click(onClickPlay);
     _paper = Raphael("TheCanvas", WIDTH, HEIGHT);
     return draw();
   });

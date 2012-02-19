@@ -17,16 +17,19 @@ _selected = []
 _harm = [1, 3, 5, 7, 9]
 NHARM = 5
 
+
 _tunings = [
   {
     name: "equal temperament"
     names: [ "C", "D", "E", "F", "G", "A", "B", "C" ]
     notes: [523,587,659,699,784,880,988, 1047] # http://peabody.sapp.org/class/st2/lab/notehz/
+    midi: [0x3C, 0x3E, 0x40, 0x41, 0x43, 0x45, 0x47, 0x48]
   },
   {
     name: "just intonation"
     names: [ "C", "D", "E", "F", "G", "A", "B", "C" ]
     notes: [ 523*1/1, 523*9/8, 523*5/4, 523*4/3, 523*3/2, 523*5/3, 523*15/8, 523*2/1 ] # http://www.kylegann.com/tuning.html
+    midi: [0x3C, 0x3E, 0x40, 0x41, 0x43, 0x45, 0x47, 0x48]
   }
 ]
 _cur = _tunings[0]
@@ -119,7 +122,53 @@ onChangeTuning = ->
       _cur = t
   draw()
 
-onClickPaper = ->
+onClickPlay = ->
+
+  duration = 128
+  noteEvents = []
+
+  # pause to intialize
+  noteEvents.push(MidiEvent.noteOff(_cur.midi[0], duration))
+
+  # play scale
+  for x in _cur.midi
+    noteEvents.push MidiEvent.noteOn(x)
+    noteEvents.push(MidiEvent.noteOff(x, duration))
+
+  # play selected notes (twice)
+  for repeat in [0...2]
+    for i in [0 ... _cur.names.length]
+      if _selected[i]
+        x = _cur.midi[i]
+        noteEvents.push MidiEvent.noteOn(x)
+        noteEvents.push(MidiEvent.noteOff(x, duration))
+
+  # play chord
+  for i in [0 ... _cur.names.length]
+    if _selected[i]
+      x = _cur.midi[i]
+      noteEvents.push MidiEvent.noteOn(x)
+
+  for i in [0 ... _cur.names.length]
+    if _selected[i]
+      x = _cur.midi[i]
+      noteEvents.push(MidiEvent.noteOff(x, 4*duration))
+
+
+#  for note in ["C4", "E4", "G4"]
+#    evts = MidiEvent.createNote(note)
+#    for evt in evts
+#      noteEvents.push evt
+
+  track = new MidiTrack({ events: noteEvents })
+  song  = MidiWriter({ tracks: [track] })
+  $('#sound_').remove()
+  embed = document.createElement("embed");
+  embed.setAttribute("src", "data:audio/midi;base64," + song.b64);
+  embed.setAttribute("type", "audio/midi");
+  embed.setAttribute("id", "sound_")
+  document.body.appendChild(embed);
+
 
 
 $(document).ready ->
@@ -127,6 +176,8 @@ $(document).ready ->
     t = _tunings[i]
     $('#selectTuning').append('<option value="' + t.name + '">' + t.name + '</option>');
     $('#selectTuning').change(onChangeTuning)
+
+  $('#play').click( onClickPlay )
 
   _paper = Raphael("TheCanvas", WIDTH, HEIGHT);
   draw()
