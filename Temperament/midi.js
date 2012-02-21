@@ -10,7 +10,7 @@ The original project is at:
 
 I have made the following changes:
    - remove console override
-
+   - add helper MidiEvent.pitchBend
 */
 
 /*jslint es5: true, laxbreak: true */
@@ -301,6 +301,9 @@ MidiEvent.noteOn = function(note, duration) {
     });
 };
 
+
+
+
 /**
  * Returns an event of the type NOTE_OFF taking the values passed and falling
  * back to defaults if they are not specified.
@@ -319,6 +322,22 @@ MidiEvent.noteOff = function(note, duration) {
         param2:  note.volume  || DEFAULT_VOLUME
     });
 };
+
+
+/**
+ * ERJ added
+ */
+
+MidiEvent.pitchBend = function(channel, amt) {
+    return new MidiEvent({
+        time:    0,
+        type:    EVT_PITCH_BEND,
+        channel: channel || DEFAULT_CHANNEL,
+        param1:  amt & 127,
+        param2:  (amt/127) & 127
+    });
+};
+
 
 
 MidiEvent.prototype = {

@@ -1,6 +1,6 @@
 
 /*
-Copyright (c) 2010-2011 Eric R. Johnson, http://www.lostbearlabs.com
+Copyright (c) 2012 Eric R. Johnson, http://www.lostbearlabs.com
 
 All code on LostBearLabs.com is made available under the terms of the
 Artistic License 2.0, for details please see:
@@ -8,7 +8,7 @@ Artistic License 2.0, for details please see:
 */
 
 (function() {
-  var HEIGHT, NHARM, WIDTH, bar, draw, height, onChangeTuning, onClickPlay, xpos, _colors, _cur, _harm, _paper, _selected, _tunings;
+  var HEIGHT, NHARM, WIDTH, bar, computeBend, draw, height, onChangeTuning, onClickPlay, toNote, xpos, _colors, _cur, _harm, _paper, _selected, _tunings;
 
   WIDTH = 400;
 
@@ -29,11 +29,19 @@ Artistic License 2.0, for details please see:
       name: "equal temperament",
       names: ["C", "D", "E", "F", "G", "A", "B", "C"],
       notes: [523, 587, 659, 699, 784, 880, 988, 1047],
+      etnotes: [523, 587, 659, 699, 784, 880, 988, 1047],
       midi: [0x3C, 0x3E, 0x40, 0x41, 0x43, 0x45, 0x47, 0x48]
     }, {
       name: "just intonation",
       names: ["C", "D", "E", "F", "G", "A", "B", "C"],
       notes: [523 * 1 / 1, 523 * 9 / 8, 523 * 5 / 4, 523 * 4 / 3, 523 * 3 / 2, 523 * 5 / 3, 523 * 15 / 8, 523 * 2 / 1],
+      etnotes: [523, 587, 659, 699, 784, 880, 988, 1047],
+      midi: [0x3C, 0x3E, 0x40, 0x41, 0x43, 0x45, 0x47, 0x48]
+    }, {
+      name: "out of tune",
+      names: ["C", "D", "E", "F", "G", "A", "B", "C"],
+      etnotes: [523, 587, 659, 699, 784, 880, 988, 1047],
+      notes: [523, 587 * 1.01, 659 * 1.02, 699 * 0.99, 784 * 0.97, 880 * 1.03, 988 * 0.098, 1047 * 1.03],
       midi: [0x3C, 0x3E, 0x40, 0x41, 0x43, 0x45, 0x47, 0x48]
     }
   ];
@@ -138,36 +146,48 @@ Artistic License 2.0, for details please see:
     return draw();
   };
 
+  toNote = function(i) {
+    return {
+      pitch: _cur.midi[i],
+      frequency: _cur.notes[i],
+      channel: i
+    };
+  };
+
+  computeBend = function(note, base) {
+    var bend, cents;
+    cents = 1200 * Math.log(note / base) / Math.log(2);
+    bend = 8192 * (cents / 200);
+    return 8192 + bend;
+  };
+
   onClickPlay = function() {
-    var duration, embed, i, noteEvents, repeat, song, track, x, _i, _len, _ref, _ref2, _ref3, _ref4;
+    var bend, duration, embed, i, noteEvents, repeat, song, track, _ref, _ref2, _ref3, _ref4, _ref5;
     duration = 128;
     noteEvents = [];
-    noteEvents.push(MidiEvent.noteOff(_cur.midi[0], duration));
-    _ref = _cur.midi;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      x = _ref[_i];
-      noteEvents.push(MidiEvent.noteOn(x));
-      noteEvents.push(MidiEvent.noteOff(x, duration));
+    noteEvents.push(MidiEvent.noteOff(toNote(0), duration));
+    for (i = 0, _ref = _cur.names.length; 0 <= _ref ? i < _ref : i > _ref; 0 <= _ref ? i++ : i--) {
+      bend = computeBend(_cur.notes[i], _cur.etnotes[i]);
+      noteEvents.push(MidiEvent.pitchBend(i, bend));
+    }
+    for (i = 0, _ref2 = _cur.names.length; 0 <= _ref2 ? i < _ref2 : i > _ref2; 0 <= _ref2 ? i++ : i--) {
+      noteEvents.push(MidiEvent.noteOn(toNote(i)));
+      noteEvents.push(MidiEvent.noteOff(toNote(i), duration));
     }
     for (repeat = 0; repeat < 2; repeat++) {
-      for (i = 0, _ref2 = _cur.names.length; 0 <= _ref2 ? i < _ref2 : i > _ref2; 0 <= _ref2 ? i++ : i--) {
+      for (i = 0, _ref3 = _cur.names.length; 0 <= _ref3 ? i < _ref3 : i > _ref3; 0 <= _ref3 ? i++ : i--) {
         if (_selected[i]) {
-          x = _cur.midi[i];
-          noteEvents.push(MidiEvent.noteOn(x));
-          noteEvents.push(MidiEvent.noteOff(x, duration));
+          noteEvents.push(MidiEvent.noteOn(toNote(i)));
+          noteEvents.push(MidiEvent.noteOff(toNote(i), duration));
         }
       }
     }
-    for (i = 0, _ref3 = _cur.names.length; 0 <= _ref3 ? i < _ref3 : i > _ref3; 0 <= _ref3 ? i++ : i--) {
-      if (_selected[i]) {
-        x = _cur.midi[i];
-        noteEvents.push(MidiEvent.noteOn(x));
-      }
-    }
     for (i = 0, _ref4 = _cur.names.length; 0 <= _ref4 ? i < _ref4 : i > _ref4; 0 <= _ref4 ? i++ : i--) {
+      if (_selected[i]) noteEvents.push(MidiEvent.noteOn(toNote(i)));
+    }
+    for (i = 0, _ref5 = _cur.names.length; 0 <= _ref5 ? i < _ref5 : i > _ref5; 0 <= _ref5 ? i++ : i--) {
       if (_selected[i]) {
-        x = _cur.midi[i];
-        noteEvents.push(MidiEvent.noteOff(x, 4 * duration));
+        noteEvents.push(MidiEvent.noteOff(toNote(i), 4 * duration));
       }
     }
     track = new MidiTrack({

@@ -1,5 +1,5 @@
 ###
-Copyright (c) 2010-2011 Eric R. Johnson, http://www.lostbearlabs.com
+Copyright (c) 2012 Eric R. Johnson, http://www.lostbearlabs.com
 
 All code on LostBearLabs.com is made available under the terms of the
 Artistic License 2.0, for details please see:
@@ -23,13 +23,22 @@ _tunings = [
     name: "equal temperament"
     names: [ "C", "D", "E", "F", "G", "A", "B", "C" ]
     notes: [523,587,659,699,784,880,988, 1047] # http://peabody.sapp.org/class/st2/lab/notehz/
+    etnotes: [523,587,659,699,784,880,988, 1047] # same as notes
     midi: [0x3C, 0x3E, 0x40, 0x41, 0x43, 0x45, 0x47, 0x48]
   },
   {
     name: "just intonation"
     names: [ "C", "D", "E", "F", "G", "A", "B", "C" ]
     notes: [ 523*1/1, 523*9/8, 523*5/4, 523*4/3, 523*3/2, 523*5/3, 523*15/8, 523*2/1 ] # http://www.kylegann.com/tuning.html
+    etnotes: [523,587,659,699,784,880,988, 1047]
     midi: [0x3C, 0x3E, 0x40, 0x41, 0x43, 0x45, 0x47, 0x48]
+  },
+  {
+  name: "out of tune"
+  names: [ "C", "D", "E", "F", "G", "A", "B", "C" ]
+  etnotes: [523,587,659,699,784,880,988, 1047]
+  notes: [523,587*1.01, 659*1.02, 699*0.99, 784*0.97, 880*1.03, 988*0.098, 1047*1.03]
+  midi: [0x3C, 0x3E, 0x40, 0x41, 0x43, 0x45, 0x47, 0x48]
   }
 ]
 _cur = _tunings[0]
@@ -122,37 +131,107 @@ onChangeTuning = ->
       _cur = t
   draw()
 
+toNote = (i) ->
+  {
+    pitch: _cur.midi[i]
+    frequency: _cur.notes[i]
+    channel: i # play each note on its own channel, so that pitch bends will be note-by-note
+  }
+
+
+# EXPERIMENTAL (does not work) USE TUNING INSTEAD OF BEND
+#  F0 7F <device ID> 08 02 tt ll [kk xx yy zz] F7
+#
+#  F0 7F	Universal Real Time SysEx header
+#  <device ID>	ID of target device
+#  08	sub-ID#1 (MIDI Tuning)
+#  02	sub-ID#2 (note change)
+#  tt	tuning program number (0 – 127)
+#  ll	number of changes (1 change = 1 set of [kk xx yy zz])
+#  [kk]	MIDI key number
+#  [xx yy zz]	frequency data for that key (repeated ‘ll' number of times)
+#  F7	EOX
+
+## Frequency data shall be defined in units which are fractions of a semitone.
+## The frequency range starts at MIDI note 0, C = 8.1758 Hz, and extends above
+## MIDI note 127, G = 12543.875 Hz. The first byte of the frequency data word
+## specifies the nearest equal-tempered semitone below the frequency. The next
+## two bytes (14 bits) specify the fraction of 100 cents above the semitone
+## at which the frequency lies. Effective resolution = 100 cents / 2^14 = .0061 cents.
+
+## yy = MSB of fractional part (1/128 semitone = 100/128 cents = .78125 cent units)
+## zz = LSB of fractional part (1/16384 semitone = 100/16384 cents = .0061 cent units)
+
+#mkTuning = (note, freq) ->
+#  cents = 1200 * Math.log(freq/8.1758) / Math.log(2)
+#  nearestSemi = Math.floor(cents/100)
+#  remain = cents - 100*nearestSemi
+#  num = remain / 0.0061
+#  hi = Math.floor(num/128)
+#  lo = Math.floor(num % 128)
+#
+#  bytes = []
+#  bytes.push 0xF0
+#  bytes.push 0x7F
+#  bytes.push 0x7F # device ID (7F = all devices)
+#  bytes.push 0x08 # MIDI tuning
+#  bytes.push 0x02 # note change
+#  bytes.push 0x01 # tuning program number
+#  bytes.push 0x01 # 1 change
+#  bytes.push note # MIDI key number
+#  xx = 0x44 #nearestSemi & 0xff
+#  bytes.push xx
+#  yy = 0x7F #hi & 0xff
+#  bytes.push yy
+#  zz = 0x7F #lo & 0xff
+#  bytes.push zz
+#  bytes.push 0xF7 # EOX
+#  {
+#    toBytes: -> bytes
+#  }
+
+
+computeBend = (note, base) ->
+  cents = 1200 * Math.log( note / base ) / Math.log(2)
+  bend = 8192 * (cents/200)
+  # console.log( "bend:  #{note} / #{base} = #{cents} cents = #{bend} bend")
+  8192 + bend
+
+
 onClickPlay = ->
 
   duration = 128
   noteEvents = []
 
   # pause to intialize
-  noteEvents.push(MidiEvent.noteOff(_cur.midi[0], duration))
+  noteEvents.push(MidiEvent.noteOff( toNote(0), duration))
+
+  # retune scale
+  for i in [0 ... _cur.names.length]
+    bend = computeBend( _cur.notes[i], _cur.etnotes[i] )
+    noteEvents.push( MidiEvent.pitchBend( i, bend) )
+
 
   # play scale
-  for x in _cur.midi
-    noteEvents.push MidiEvent.noteOn(x)
-    noteEvents.push(MidiEvent.noteOff(x, duration))
+  for i in [0 ... _cur.names.length]
+    noteEvents.push MidiEvent.noteOn( toNote(i) )
+    noteEvents.push(MidiEvent.noteOff( toNote(i), duration))
 
   # play selected notes (twice)
   for repeat in [0...2]
     for i in [0 ... _cur.names.length]
       if _selected[i]
-        x = _cur.midi[i]
-        noteEvents.push MidiEvent.noteOn(x)
-        noteEvents.push(MidiEvent.noteOff(x, duration))
+        noteEvents.push MidiEvent.noteOn( toNote(i) )
+        noteEvents.push(MidiEvent.noteOff( toNote(i), duration))
 
   # play chord
   for i in [0 ... _cur.names.length]
     if _selected[i]
-      x = _cur.midi[i]
-      noteEvents.push MidiEvent.noteOn(x)
+      noteEvents.push MidiEvent.noteOn( toNote(i) )
 
   for i in [0 ... _cur.names.length]
     if _selected[i]
-      x = _cur.midi[i]
-      noteEvents.push(MidiEvent.noteOff(x, 4*duration))
+      noteEvents.push(MidiEvent.noteOff( toNote(i), 4*duration))
 
 
 #  for note in ["C4", "E4", "G4"]
