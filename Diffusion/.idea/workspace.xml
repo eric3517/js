@@ -22,10 +22,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="diffusion.coffee" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="diffusion.coffee" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/diffusion.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="123" column="13" selection-start="2347" selection-end="2347" vertical-scroll-proportion="0.0">
+            <state line="9" column="0" selection-start="0" selection-end="310" vertical-scroll-proportion="0.14705883">
               <folding />
             </state>
           </provider>
@@ -43,16 +43,16 @@
       <file leaf-file-name="diffusion.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/diffusion.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="8" selection-start="689" selection-end="689" vertical-scroll-proportion="-10.0">
+            <state line="16" column="8" selection-start="689" selection-end="689" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="spring.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="spring.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../Spring/spring.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="8" selection-start="748" selection-end="748" vertical-scroll-proportion="0.28114665">
+            <state line="17" column="8" selection-start="748" selection-end="748" vertical-scroll-proportion="-10.625">
               <folding />
             </state>
           </provider>
@@ -104,8 +104,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="543" />
-    <option name="y" value="56" />
+    <option name="x" value="564" />
+    <option name="y" value="71" />
     <option name="width" value="1326" />
     <option name="height" value="1077" />
   </component>
@@ -171,7 +171,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="543" y="56" width="1326" height="1077" extended-state="0" />
+    <frame x="564" y="71" width="1326" height="1077" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -257,42 +257,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/publish">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="193" selection-end="193" vertical-scroll-proportion="0.0">
+        <state line="5" column="0" selection-start="193" selection-end="193" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diffusion.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="8" selection-start="689" selection-end="689" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diffusion.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="165" selection-end="165" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Spring/spring.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="27" selection-start="103" selection-end="103" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Spring/spring.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="8" selection-start="748" selection-end="748" vertical-scroll-proportion="-10.625">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/diffusion.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="13" selection-start="2347" selection-end="2347" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diffusion.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="165" selection-end="165" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Spring/spring.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="27" selection-start="103" selection-end="103" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/diffusion.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="8" selection-start="689" selection-end="689" vertical-scroll-proportion="-10.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Spring/spring.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="8" selection-start="748" selection-end="748" vertical-scroll-proportion="0.28114665">
+        <state line="9" column="0" selection-start="0" selection-end="310" vertical-scroll-proportion="0.14705883">
           <folding />
         </state>
       </provider>
